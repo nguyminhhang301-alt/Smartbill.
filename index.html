@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173c91">
+  <title>SmartBill — Financial Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" hidden></div>
+
+  <section id="loginView" class="login-page smartbill-auth-page">
+    <img class="auth-fullscreen-image" src="./assets/smartbill-login.png" alt="SmartBill - Trợ lý tài chính và thuế AI">
+    <div class="auth-image-shade" aria-hidden="true"></div>
+
+    <div class="auth-actions" aria-label="Tài khoản SmartBill">
+      <button id="authLoginButton" class="auth-top-button auth-top-login" type="button">Đăng nhập</button>
+      <button id="authRegisterButton" class="auth-top-button auth-top-register" type="button">Đăng ký</button>
+    </div>
+
+    <div id="authModal" class="auth-modal" hidden>
+      <div class="auth-card">
+        <button id="authCloseButton" class="auth-modal-close" type="button" aria-label="Đóng">×</button>
+
+        <form id="loginForm" class="auth-login-form">
+          <span class="auth-mini-label">ĐĂNG NHẬP SMARTBILL</span>
+          <h2>Chào mừng trở lại!</h2>
+          <p>Đăng nhập để vào trang chủ SmartBill.</p>
+          <label>Email hoặc số điện thoại<input id="loginEmail" value="demo@smartbill.vn" autocomplete="username" required></label>
+          <label>Mật khẩu<input id="loginPassword" type="password" value="123456" autocomplete="current-password" required></label>
+          <div class="auth-form-row">
+            <label class="auth-check"><input type="checkbox" checked> Ghi nhớ tài khoản</label>
+            <button type="button" class="auth-forgot">Quên mật khẩu?</button>
+          </div>
+          <button class="auth-primary-button full" type="submit">Đăng nhập</button>
+          <p class="auth-switch">Chưa có tài khoản? <button id="authRegisterFromLogin" type="button">Đăng ký ngay</button></p>
+        </form>
+
+        <form id="registerForm" class="auth-login-form" hidden>
+          <span class="auth-mini-label">TẠO TÀI KHOẢN SMARTBILL</span>
+          <h2>Đăng ký tài khoản</h2>
+          <p>Tạo tài khoản để bắt đầu sử dụng SmartBill.</p>
+          <label>Họ và tên<input id="registerName" placeholder="Nguyễn Minh Anh" autocomplete="name" required></label>
+          <label>Email<input id="registerEmail" type="email" placeholder="email@example.com" autocomplete="email" required></label>
+          <label>Mật khẩu<input id="registerPassword" type="password" placeholder="Tối thiểu 6 ký tự" autocomplete="new-password" minlength="6" required></label>
+          <label>Nhập lại mật khẩu<input id="registerConfirm" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password" minlength="6" required></label>
+          <button class="auth-primary-button full" type="submit">Đăng ký</button>
+          <p class="auth-switch">Đã có tài khoản? <button id="authLoginFromRegister" type="button">Đăng nhập</button></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="onboardingView" class="onboarding-page" hidden>
+    <div class="onboarding-card">
+      <div class="brand"><span class="brand-mark">SB</span><div><strong>SmartBill</strong><small data-i18n="setupTitle">Thiết lập SmartBill</small></div></div>
+      <div id="stepper" class="stepper"></div>
+      <div id="onboardingBody" class="onboarding-body"></div>
+      <div class="wizard-actions"><button id="onboardingBack" class="secondary-button" type="button" data-i18n="back">Quay lại</button><button id="onboardingNext" class="primary-button" type="button" data-i18n="continue">Tiếp tục</button></div>
+    </div>
+  </section>
+
+  <div id="appView" class="app-shell" hidden>
+    <aside id="sidebar" class="sidebar" aria-hidden="true">
+      <nav id="mainNav"></nav>
+      <button id="logoutButton" type="button">Đăng xuất</button>
+      <button id="closeSidebar" type="button" class="mobile-only">×</button>
+    </aside>
+
+    <div class="app-main">
+      <header class="top-header smartbill-mainnav">
+        <a class="smartbill-logo" href="#/dashboard" data-route="dashboard">
+          <span class="brand-mark">SB</span>
+          <span><strong>SmartBill</strong><small>Quản lý tài chính</small></span>
+        </a>
+        <nav id="topNav" class="top-nav" aria-label="Điều hướng chính"></nav>
+        <div class="smartbill-header-actions">
+          <label class="header-search"><span>⌕</span><input data-i18n-placeholder="search" placeholder="Tìm kiếm"></label>
+          <button id="notificationShortcut" class="nav-action-button badge-dot" aria-label="Thông báo"></button>
+          <div class="user-chip"><span class="avatar avatar-initials" aria-label="Minh Anh">MA</span><div><strong id="headerProfileName">Minh Anh</strong><small data-i18n="businessOwner">Chủ hộ kinh doanh</small></div></div>
+          <button id="settingsShortcut" class="settings-shortcut" type="button" aria-label="Cài đặt"></button><button id="logoutButtonTop" class="logout-top" type="button">Đăng xuất</button>
+        </div>
+      </header>
+
+      <main id="pageHost" class="page-content"></main>
+    </div>
+
+    <nav id="mobileNav" class="mobile-nav"></nav>
+    <button id="mobileMenuButton" class="icon-button mobile-only" hidden>☰</button>
+    <button id="collapseSidebar" class="icon-button desktop-only" hidden>☷</button>
+    <button id="chatFab" class="chat-fab">✦</button>
+    <section id="chatPopup" class="chat-popup" hidden>
+      <header><div><strong>SmartBill AI</strong><small>Online</small></div><button id="closeChat" class="icon-button">×</button></header>
+      <div id="chatMessages" class="chat-messages"></div>
+      <footer><input id="chatInput" data-i18n-placeholder="chatPlaceholder" placeholder="Nhập câu hỏi…"><button id="chatSend">➤</button></footer>
+    </section>
+  </div>
+
+  <div id="modal" class="modal-backdrop" hidden>
+    <section class="modal-card"><header><h2 id="modalTitle"></h2><button id="modalClose" class="icon-button">×</button></header><div id="modalBody"></div></section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
